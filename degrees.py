@@ -93,23 +93,20 @@ def shortest_path(source, target):
     """
 
     # Keep track of number os states explored
-
     states_explored = 0
 
     # Initialize frontier to just the starting position
-
     start = Node(state=source, parent=None, action=None)
     frontier = StackFrontier()
     frontier.add(start)
 
     # Initialize an empty explored set
-
     explored_set = set()
 
+    #Dict to keep track of paths and their lenghts
+    lengths = {}
+    
     # Keep looking until solution found
-
-    lenths = {}
-
     while True:
         
         # If nothing left in frontier, then no path
@@ -117,7 +114,7 @@ def shortest_path(source, target):
             if not lenths:
                 return None
             else:
-                return lenths[min(lenths.keys())]
+                return lengths[min(lengths.keys())]
 
         # Choose a node from the frontier
         node = frontier.remove()
