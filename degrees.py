@@ -111,7 +111,7 @@ def shortest_path(source, target):
         
         # If nothing left in frontier, then no path
         if frontier.empty():
-            if not lenths:
+            if not lengths:
                 return None
             else:
                 return lengths[min(lengths.keys())]
@@ -135,7 +135,7 @@ def shortest_path(source, target):
             for i in range(len(actions)):
                 solution.append([actions[i], persons[i]])
 
-            lenths[len(solution)] = solution
+            lengths[len(solution)] = solution
 
         # Mark node as explored
         explored_set.add(node.state)
