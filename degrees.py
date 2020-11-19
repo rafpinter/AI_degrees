@@ -97,24 +97,19 @@ def shortest_path(source, target):
 
     # Initialize frontier to just the starting position
     start = Node(state=source, parent=None, action=None)
-    frontier = StackFrontier()
+    frontier = QueueFrontier()
     frontier.add(start)
 
     # Initialize an empty explored set
     explored_set = set()
 
-    #Dict to keep track of paths and their lenghts
-    lengths = {}
-    
+       
     # Keep looking until solution found
     while True:
         
         # If nothing left in frontier, then no path
         if frontier.empty():
-            if not lengths:
-                return None
-            else:
-                return lengths[min(lengths.keys())]
+            return None
 
         # Choose a node from the frontier
         node = frontier.remove()
@@ -134,8 +129,8 @@ def shortest_path(source, target):
 
             for i in range(len(actions)):
                 solution.append([actions[i], persons[i]])
-
-            lengths[len(solution)] = solution
+            
+            return solution
 
         # Mark node as explored
         explored_set.add(node.state)
