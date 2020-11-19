@@ -113,7 +113,6 @@ def shortest_path(source, target):
     while True:
         
         # If nothing left in frontier, then no path
-
         if frontier.empty():
             if not lenths:
                 return None
@@ -121,24 +120,25 @@ def shortest_path(source, target):
                 return lenths[min(lenths.keys())]
 
         # Choose a node from the frontier
-
         node = frontier.remove()
         states_explored += 1
 
         # If node is the goal, then we have a solution
-
         if node.state == target:
+
             actions = []
             persons = []
             solution = []
+
             while node.parent is not None:
                 actions.append(node.action)
                 persons.append(node.state)
                 node = node.parent
+
             for i in range(len(actions)):
                 solution.append([actions[i], persons[i]])
-            lenths[len(solution)] = solution
 
+            lenths[len(solution)] = solution
 
         # Mark node as explored
         explored_set.add(node.state)
@@ -149,7 +149,7 @@ def shortest_path(source, target):
                 child = Node(state=state,parent=node,action=action)
                 frontier.add(child)
 
-
+    
 def person_id_for_name(name):
     """
     Returns the IMDB id for a person's name,
