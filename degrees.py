@@ -114,21 +114,17 @@ def shortest_path(source, target):
         # Choose a node from the frontier
         node = frontier.remove()
         states_explored += 1
-
+        
         # If node is the goal, then we have a solution
         if node.state == target:
 
-            actions = []
-            persons = []
             solution = []
 
             while node.parent is not None:
-                actions.append(node.action)
-                persons.append(node.state)
+                print(node.state)
+                solution.append((node.action,node.state))
                 node = node.parent
-
-            for i in range(len(actions)):
-                solution.append([actions[i], persons[i]])
+                solution.reverse()
             
             return solution
 
@@ -137,10 +133,9 @@ def shortest_path(source, target):
 
         # Add neighbors to frontier
         for action, state in neighbors_for_person(node.state, target):
-            if not frontier.contains_state(node.state) and state not in explored_set:
+            if not frontier.contains_state(state) and state not in explored_set:
                 child = Node(state=state,parent=node,action=action)
                 frontier.add(child)
-
     
 def person_id_for_name(name):
     """
@@ -178,10 +173,11 @@ def neighbors_for_person(person_id, goal):
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
             if person_id == goal:
-                return (movie_id, person_id)
+                neighbors = set()
+                neighbors.add((movie_id, person_id))
+                return neighbors
             neighbors.add((movie_id, person_id))
     return neighbors
-
-
+    
 if __name__ == "__main__":
     main()
