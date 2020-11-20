@@ -136,7 +136,7 @@ def shortest_path(source, target):
         explored_set.add(node.state)
 
         # Add neighbors to frontier
-        for action, state in neighbors_for_person(node.state):
+        for action, state in neighbors_for_person(node.state, target):
             if not frontier.contains_state(node.state) and state not in explored_set:
                 child = Node(state=state,parent=node,action=action)
                 frontier.add(child)
@@ -168,7 +168,7 @@ def person_id_for_name(name):
         return person_ids[0]
 
 
-def neighbors_for_person(person_id):
+def neighbors_for_person(person_id, goal):
     """
     Returns (movie_id, person_id) pairs for people
     who starred with a given person.
@@ -177,6 +177,8 @@ def neighbors_for_person(person_id):
     neighbors = set()
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
+            if person_id == goal:
+                return (movie_id, person_id)
             neighbors.add((movie_id, person_id))
     return neighbors
 
